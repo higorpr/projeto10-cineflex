@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export default function Header() {
+export default function Header({setPhase}) {
     return (
         <StyledHeader>
             <StyledLink to="/">
-                <p>CINEFLEX</p>
+                <p onClick={() => setPhase('movies')}>CINEFLEX</p>
             </StyledLink>
         </StyledHeader>
     );

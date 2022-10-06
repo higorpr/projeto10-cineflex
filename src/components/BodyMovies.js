@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-export default function BodyMovies({ phase, setPhase }) {
+export default function BodyMovies({ setPhase, setMovie, setPoster }) {
     const [movies, setMovies] = useState([]);
     // console.log(movies);
 
@@ -19,6 +20,12 @@ export default function BodyMovies({ phase, setPhase }) {
         });
     }, []);
 
+    function updateMovie(title, poster) {
+        setMovie(title);
+        setPoster(poster);
+        setPhase('sessions')
+    }
+
     if (movies === null) {
         return (
             <StyledBody>
@@ -32,13 +39,15 @@ export default function BodyMovies({ phase, setPhase }) {
     return (
         <StyledBody>
             <div>
-                <p>Selecione o filme</p>
+                <h1>Selecione o filme</h1>
             </div>     
 
             <StyledList>
             {movies.map((m) => (
-                <li key={m.id}>
+                <li key={m.id} onClick={() => updateMovie(m.title, m.posterURL)}>
+                <Link to={`/sessions/${m.id}`}>
                 <img src={m.posterURL} alt={m.title}/>
+                </Link>
                 </li>
             ))}
             </StyledList>
@@ -50,6 +59,8 @@ const StyledBody = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 67px;
+    width: 100vw;
+    align-items: center;
 
     div {
         width: 374px;
@@ -59,7 +70,7 @@ const StyledBody = styled.div`
         align-items: center;
     }
 
-    p {
+    h1 {
         text-align: center;
         font-size: 24px;
         line-height: 28px;
