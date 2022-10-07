@@ -46,12 +46,13 @@ export default function App() {
                         element={
                             <BodyTime
                                 setPhase={setPhase}
+                                session={session}
                                 setSession={setSession}
                             />
                         }
                     />
                     <Route
-                        path="/seats"
+                        path="/seats/:idSession"
                         element={
                             <BodySeats
                                 setPhase={setPhase}

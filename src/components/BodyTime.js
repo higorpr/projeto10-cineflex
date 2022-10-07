@@ -1,9 +1,9 @@
 import axios from "axios";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-export default function BodyTime({ setPhase, setSession }) {
+export default function BodyTime({ setPhase, session, setSession }) {
     const { movieId } = useParams();
     const [sessions, setSessions] = useState([]);
 
@@ -27,13 +27,20 @@ export default function BodyTime({ setPhase, setSession }) {
                     date={s.date}
                     weekday={s.weekday}
                     showtimes={s.showtimes}
+                    session={session}
+                    setSession={setSession}
+                    setPhase={setPhase}
                 />
             ))}
         </StyledBody>
     );
 }
 
-function Session({ date, weekday, showtimes }) {
+function Session({ date, weekday, showtimes,session,setSession,setPhase }) {
+    function updateSession(showtime){
+        setSession({...session, weekday,date,showtime});
+        setPhase('seats');
+    }
     return (
         <StyledSession>
             <p>
@@ -42,7 +49,9 @@ function Session({ date, weekday, showtimes }) {
             <StyledButtonList>
                 {showtimes.map((s) => (
                     <li key={s.id}>
-                        <button>{s.name}</button>
+                        <Link to={`/seats/${s.id}`}>
+                        <button onClick={() => updateSession(s.name)}>{s.name}</button>
+                        </Link>
                     </li>
                 ))}
             </StyledButtonList>

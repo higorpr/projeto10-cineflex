@@ -12,7 +12,13 @@ export default function Footer({ phase, movie, poster, session }) {
             <img src={poster} alt="poster_img" />
             <div>
                 <h1>{movie}</h1>
-                <span>{session.weekday}</span> - <span>{session.showtime}</span>
+                {phase === "seats" && (
+                    <>
+                        <span>
+                            <h1>{session.weekday} - {session.showtime}</h1>
+                        </span>
+                    </>
+                )}
             </div>
         </StyledFooter>
     );
@@ -25,6 +31,7 @@ const StyledFooter = styled.div`
     background-color: #dfe6ed;
     border-top: 1px solid #9eadba;
     display: flex;
+    align-items: center;
 
     img {
         padding: 8px;
