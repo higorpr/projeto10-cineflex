@@ -16,14 +16,14 @@ export default function App() {
     const [poster, setPoster] = useState("");
     const [session, setSession] = useState({weekday:'', date:'', showtime:''});
     const [seats, setSeats] = useState([]);
-    const [buyer, setBuyer] = useState({buyerName:'', buyerCPF:''});
+    const [buyer, setBuyer] = useState({name:'', cpf:''});
 
-    console.log("Phase: ", phase);
-    console.log("Movie: ", movie);
-    console.log("Poster: ", poster);
-    console.log("Session: ", session);
-    console.log("Seats: ", seats);
-    console.log("Buyer: ", buyer);
+    // console.log("Phase: ", phase);
+    // console.log("Movie: ", movie);
+    // console.log("Poster: ", poster);
+    // console.log("Session: ", session);
+    // console.log("Seats: ", seats);
+    // console.log("Buyer: ", buyer);
 
     return (
         <>
@@ -52,10 +52,11 @@ export default function App() {
                         }
                     />
                     <Route
-                        path="/seats/:idSession"
+                        path="/seats/:sessionId"
                         element={
                             <BodySeats
                                 setPhase={setPhase}
+                                seats = {seats}
                                 setSeats={setSeats}
                                 setBuyer={setBuyer}
                             />

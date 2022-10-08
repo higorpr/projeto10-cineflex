@@ -9,10 +9,14 @@ export default function BodyTime({ setPhase, session, setSession }) {
 
     useEffect(() => {
         const url = `https://mock-api.driven.com.br/api/v5/cineflex/movies/${movieId}/showtimes`;
-        const promisse = axios.get(url);
+        const promise = axios.get(url);
 
-        promisse.then((res) => {
+        promise.then((res) => {
             setSessions(res.data.days);
+        });
+
+        promise.catch((err)=>{
+            console.log(err)
         });
     }, []);
 

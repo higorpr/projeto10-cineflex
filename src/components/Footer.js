@@ -11,7 +11,8 @@ export default function Footer({ phase, movie, poster, session }) {
         <StyledFooter>
             <img src={poster} alt="poster_img" />
             <div>
-                <h1>{movie}</h1>
+                <h1>{movie}</h1>             
+                
                 {phase === "seats" && (
                     <>
                         <span>
@@ -33,6 +34,11 @@ const StyledFooter = styled.div`
     display: flex;
     align-items: center;
 
+    div {
+        display: flex;
+        flex-direction: column;       
+    }
+
     img {
         padding: 8px;
         width: 64px;
@@ -45,7 +51,7 @@ const StyledFooter = styled.div`
     }
 
     h1 {
-        text-align: center;
+        text-align: left;
         font-size: 26px;
         line-height: 28px;
         font-family: "Roboto";

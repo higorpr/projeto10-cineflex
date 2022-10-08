@@ -9,13 +9,13 @@ export default function BodyMovies({ setPhase, setMovie, setPoster }) {
 
     useEffect(() => {
         const url = "https://mock-api.driven.com.br/api/v5/cineflex/movies";
-        const promisse = axios.get(url);
+        const promise = axios.get(url);
 
-        promisse.then((res) => {
+        promise.then((res) => {
             setMovies(res.data);
         });
 
-        promisse.catch((err) => {
+        promise.catch((err) => {
             console.log(err);
         });
     }, []);
