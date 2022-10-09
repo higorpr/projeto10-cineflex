@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -176,6 +176,7 @@ function UserForm({ setPhase, seats, buyer, setBuyer }) {
         promise.then((res) => {
             console.log(res);
             navigate("/success");
+            setPhase('success')
         });
         promise.catch((err) => {
             console.log(err);
@@ -190,7 +191,7 @@ function UserForm({ setPhase, seats, buyer, setBuyer }) {
                     id="name"
                     value={buyer.name}
                     onChange={(e) => {
-                        setBuyer({ ...buyer, ["name"]: e.target.value });
+                        setBuyer({ ...buyer, "name": e.target.value });
                     }}
                     placeholder="Digite seu nome..."
                     required
@@ -201,10 +202,11 @@ function UserForm({ setPhase, seats, buyer, setBuyer }) {
                 <input
                     type="number"
                     id="cpf"
+                    min='10000000000'
                     max="99999999999"
                     value={buyer.cpf}
                     onChange={(e) => {
-                        setBuyer({ ...buyer, ["cpf"]: e.target.value });
+                        setBuyer({ ...buyer, "cpf": e.target.value });
                     }}
                     placeholder="Digite seu CPF..."
                     required

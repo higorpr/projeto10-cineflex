@@ -86,7 +86,7 @@ export default function App() {
                                 setPhase={setPhase}
                                 movie={movie}
                                 session={session}
-                                seats={seats}
+                                seatsNames={seatsNames}
                                 buyer={buyer}
                             />
                         }
