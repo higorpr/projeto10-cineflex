@@ -14,22 +14,36 @@ export default function App() {
     const [phase, setPhase] = useState("movies");
     const [movie, setMovie] = useState("");
     const [poster, setPoster] = useState("");
-    const [session, setSession] = useState({weekday:'', date:'', showtime:''});
+    const [session, setSession] = useState({
+        weekday: "",
+        date: "",
+        showtime: "",
+    });
     const [seats, setSeats] = useState([]);
-    const [buyer, setBuyer] = useState({name:'', cpf:''});
+    const [seatsNames, setSeatsNames] = useState([]);
+    const [buyer, setBuyer] = useState({ name: "", cpf: "" });
 
-    // console.log("Phase: ", phase);
-    // console.log("Movie: ", movie);
-    // console.log("Poster: ", poster);
-    // console.log("Session: ", session);
-    // console.log("Seats: ", seats);
-    // console.log("Buyer: ", buyer);
+    console.log("Phase: ", phase);
+    console.log("Movie: ", movie);
+    console.log("Poster: ", poster);
+    console.log("Session: ", session);
+    console.log("Seats: ", seats);
+    console.log('Seats Names: ', seatsNames);
+    console.log("Buyer: ", buyer);
 
     return (
         <>
             <BrowserRouter>
                 <GlobalStyle />
-                <Header setPhase={setPhase}/>
+                <Header
+                    setPhase={setPhase}
+                    setMovie={setMovie}
+                    setPoster={setPoster}
+                    setSession={setSession}
+                    setSeats={setSeats}
+                    setSeatsNames={setSeatsNames}
+                    setBuyer={setBuyer}
+                />
                 <Routes>
                     <Route
                         path="/"
@@ -56,8 +70,11 @@ export default function App() {
                         element={
                             <BodySeats
                                 setPhase={setPhase}
-                                seats = {seats}
+                                seats={seats}
                                 setSeats={setSeats}
+                                seatsNames={seatsNames}
+                                setSeatsNames={setSeatsNames}
+                                buyer={buyer}
                                 setBuyer={setBuyer}
                             />
                         }
@@ -75,7 +92,12 @@ export default function App() {
                         }
                     />
                 </Routes>
-                <Footer phase={phase} movie={movie} poster={poster} session={session} />
+                <Footer
+                    phase={phase}
+                    movie={movie}
+                    poster={poster}
+                    session={session}
+                />
             </BrowserRouter>
         </>
     );

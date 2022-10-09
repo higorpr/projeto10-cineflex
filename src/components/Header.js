@@ -1,11 +1,36 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export default function Header({setPhase}) {
+export default function Header({
+    setPhase,
+    setMovie,
+    setPoster,
+    setSession,
+    setSeats,
+    setSeatsNames,
+    setBuyer,
+}) {
+    function resetStates() {
+        setPhase("movies");
+        setMovie("");
+        setPoster("");
+        setSession({
+            weekday: "",
+            date: "",
+            showtime: "",
+        });
+        setSeats([]);
+        setSeatsNames([]);
+        setBuyer({ name: "", cpf: "" });
+    }
     return (
         <StyledHeader>
             <StyledLink to="/">
-                <p onClick={() => setPhase('movies')}>CINEFLEX</p>
+                <p
+                    onClick={resetStates}
+                >
+                    CINEFLEX
+                </p>
             </StyledLink>
         </StyledHeader>
     );

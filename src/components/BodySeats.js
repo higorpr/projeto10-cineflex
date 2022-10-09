@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
-export default function BodySeats({ setPhase, seats, setSeats, setBuyer }) {
+export default function BodySeats({
+    setPhase,
+    seats,
+    setSeats,
+    seatsNames,
+    setSeatsNames,
+    buyer,
+    setBuyer,
+}) {
     const { sessionId } = useParams();
     const [allSeats, setAllSeats] = useState([]);
     let unavailbleColor = "#FBE192";
@@ -40,6 +48,8 @@ export default function BodySeats({ setPhase, seats, setSeats, setBuyer }) {
                         isAvailable={s.isAvailable}
                         seats={seats}
                         setSeats={setSeats}
+                        seatsNames={seatsNames}
+                        setSeatsNames={setSeatsNames}
                     />
                 ))}
             </StyledButtonList>
@@ -70,12 +80,25 @@ export default function BodySeats({ setPhase, seats, setSeats, setBuyer }) {
                 </li>
             </StyledButtonList2>
 
-            <UserForm />
+            <UserForm
+                setPhase={setPhase}
+                seats={seats}
+                buyer={buyer}
+                setBuyer={setBuyer}
+            />
         </StyledBody>
     );
 }
 
-function Seat({ id, name, isAvailable, seats, setSeats }) {
+function Seat({
+    id,
+    name,
+    isAvailable,
+    seats,
+    setSeats,
+    seatsNames,
+    setSeatsNames,
+}) {
     let unavailbleColor = "#FBE192";
     let unavailbleBorder = "#F7C52B";
     let availableColor = "#C3CFD9";
@@ -97,16 +120,22 @@ function Seat({ id, name, isAvailable, seats, setSeats }) {
     }
 
     function selectSeat() {
-        let seatArr = [...seats];
+        let seatArr;
+        let seatNameArr;
         if (isAvailable === false) {
             alert("Este assento não está disponível");
         } else {
             if (seats.includes(id) === false) {
-                seatArr = [...seatArr, id];
+                seatArr = [...seats, id];
                 setSeats(seatArr);
+                seatNameArr = [...seatsNames, name];
+                setSeatsNames(seatNameArr);
+
             } else {
-                const newArr = seatArr.filter((seatId) => seatId !== id);
-                setSeats(newArr);
+                seatArr = seats.filter((seatId) => seatId !== id);
+                setSeats(seatArr);
+                seatNameArr = seatsNames.filter((seatName) => seatName !== name);
+                setSeatsNames(seatNameArr);
             }
         }
     }
@@ -129,14 +158,40 @@ function Seat({ id, name, isAvailable, seats, setSeats }) {
     );
 }
 
-function UserForm() {
+function UserForm({ setPhase, seats, buyer, setBuyer }) {
+    const navigate = useNavigate();
+
+    function sendRequest(event) {
+        event.preventDefault();
+        const url =
+            "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many";
+        const body = {
+            ids: seats,
+            name: buyer.name,
+            cpf: buyer.cpf,
+        };
+
+        const promise = axios.post(url, body);
+
+        promise.then((res) => {
+            console.log(res);
+            navigate("/success");
+        });
+        promise.catch((err) => {
+            console.log(err);
+        });
+    }
     return (
-        <StyledForm>
+        <StyledForm onSubmit={sendRequest}>
             <div>
                 <label htmlFor="name">Nome do comprador:</label>
                 <input
                     type="text"
                     id="name"
+                    value={buyer.name}
+                    onChange={(e) => {
+                        setBuyer({ ...buyer, ["name"]: e.target.value });
+                    }}
                     placeholder="Digite seu nome..."
                     required
                 />
@@ -147,11 +202,15 @@ function UserForm() {
                     type="number"
                     id="cpf"
                     max="99999999999"
+                    value={buyer.cpf}
+                    onChange={(e) => {
+                        setBuyer({ ...buyer, ["cpf"]: e.target.value });
+                    }}
                     placeholder="Digite seu CPF..."
                     required
                 />
             </div>
-            <button>Reservar assento(s)</button>
+            <button type="submit">Reservar assento(s)</button>
         </StyledForm>
     );
 }
@@ -219,8 +278,6 @@ const StyledForm = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
-    
-    
 
     label {
         font-family: "Roboto";
@@ -246,16 +303,16 @@ const StyledForm = styled.form`
     }
 
     button {
-        background-color: #E8833A;
+        background-color: #e8833a;
         width: 225px;
         height: 42px;
         color: #ffffff;
-        font-family: 'Roboto';
+        font-family: "Roboto";
         font-weight: 400;
         font-size: 18px;
         line-height: 21px;
         margin-top: 40px;
-        border:none;
+        border: none;
         border-radius: 3px;
     }
 `;
