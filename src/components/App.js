@@ -28,7 +28,7 @@ export default function App() {
     console.log("Poster: ", poster);
     console.log("Session: ", session);
     console.log("Seats: ", seats);
-    console.log('Seats Names: ', seatsNames);
+    console.log("Seats Names: ", seatsNames);
     console.log("Buyer: ", buyer);
 
     return (
@@ -87,7 +87,13 @@ export default function App() {
                                 movie={movie}
                                 session={session}
                                 seatsNames={seatsNames}
-                                buyer={buyer}
+                                buyer={buyer}                                
+                                setMovie={setMovie}
+                                setPoster={setPoster}
+                                setSession={setSession}
+                                setSeats={setSeats}
+                                setSeatsNames={setSeatsNames}
+                                setBuyer={setBuyer}
                             />
                         }
                     />

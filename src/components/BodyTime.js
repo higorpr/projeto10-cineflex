@@ -47,14 +47,14 @@ function Session({ date, weekday, showtimes,session,setSession,setPhase }) {
     }
     return (
         <StyledSession>
-            <p>
+            <p data-identifier="session-date">
                 {weekday} - {date}
             </p>
             <StyledButtonList>
                 {showtimes.map((s) => (
                     <li key={s.id}>
                         <Link to={`/seats/${s.id}`}>
-                        <button onClick={() => updateSession(s.name)}>{s.name}</button>
+                        <button onClick={() => updateSession(s.name)} data-identifier="hour-minute-btn">{s.name}</button>
                         </Link>
                     </li>
                 ))}

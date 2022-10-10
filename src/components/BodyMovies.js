@@ -44,7 +44,7 @@ export default function BodyMovies({ setPhase, setMovie, setPoster }) {
 
             <StyledList>
             {movies.map((m) => (
-                <li key={m.id} onClick={() => updateMovie(m.title, m.posterURL)}>
+                <li key={m.id} onClick={() => updateMovie(m.title, m.posterURL)} data-identifier="movie-outdoor">
                 <Link to={`/sessions/${m.id}`}>
                 <img src={m.posterURL} alt={m.title}/>
                 </Link>

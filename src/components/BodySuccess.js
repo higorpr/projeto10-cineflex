@@ -1,7 +1,19 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export default function BodySuccess({ movie, session, seatsNames, buyer }) {
+export default function BodySuccess({
+    movie,
+    session,
+    seatsNames,
+    buyer,
+    setPhase,
+    setMovie,
+    setPoster,
+    setSession,
+    setSeats,
+    setSeatsNames,
+    setBuyer,
+}) {
     function formatCpf(cpf) {
         let p1 = cpf.slice(0, 3);
         let p2 = cpf.slice(3, 6);
@@ -12,14 +24,30 @@ export default function BodySuccess({ movie, session, seatsNames, buyer }) {
         return whole;
     }
 
+    function resetStates() {
+        setPhase("movies");
+        setMovie("");
+        setPoster("");
+        setSession({
+            weekday: "",
+            date: "",
+            showtime: "",
+        });
+        setSeats([]);
+        setSeatsNames([]);
+        setBuyer({ name: "", cpf: "" });
+    }
+
     return (
         <>
             <StyledBody>
                 <StyledTitle>Pedido feito com sucesso!</StyledTitle>
                 <div>
                     <h1>Filme e sessão</h1>
-                    <h2>{movie}</h2>
-                    <h2>
+                    <h2 data-identifier="movie-session-infos-reserve-finished">
+                        {movie}
+                    </h2>
+                    <h2 data-identifier="movie-session-infos-reserve-finished">
                         {session.date} {session.showtime}
                     </h2>
                 </div>
@@ -28,18 +56,32 @@ export default function BodySuccess({ movie, session, seatsNames, buyer }) {
                     <h1>Ingressos</h1>
                     <ul>
                         {seatsNames.map((sN, idx) => (
-                            <li key={idx}>Assento {sN}</li>
+                            <li
+                                key={idx}
+                                data-identifier="seat-infos-reserve-finished"
+                            >
+                                Assento {sN}
+                            </li>
                         ))}
                     </ul>
                 </div>
 
                 <div>
                     <h1>Comprador</h1>
-                    <h2>Nome: {buyer.name}</h2>
-                    <h2>CPF: {formatCpf(buyer.cpf)}</h2>
+                    <h2 data-identifier="buyer-infos-reserve-finished">
+                        Nome: {buyer.name}
+                    </h2>
+                    <h2 data-identifier="buyer-infos-reserve-finished">
+                        CPF: {formatCpf(buyer.cpf)}
+                    </h2>
                 </div>
                 <StyledLink to="/">
-                    <StyledButton>Voltar para home</StyledButton>
+                    <StyledButton
+                        onClick={resetStates}
+                        data-identifier="back-to-home-btn"
+                    >
+                        Voltar para home
+                    </StyledButton>
                 </StyledLink>
             </StyledBody>
         </>

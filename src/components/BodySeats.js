@@ -59,6 +59,7 @@ export default function BodySeats({
                     <StyledButton
                         color={selectedColor}
                         borderColor={selectedBorder}
+                        data-identifier="seat-selected-subtitle"
                     ></StyledButton>
                     <p>Selecionado</p>
                 </li>
@@ -67,6 +68,7 @@ export default function BodySeats({
                     <StyledButton
                         color={availableColor}
                         borderColor={availableBorder}
+                        data-identifier="seat-available-subtitle"
                     ></StyledButton>
                     <p>Disponível</p>
                 </li>
@@ -75,6 +77,7 @@ export default function BodySeats({
                     <StyledButton
                         color={unavailbleColor}
                         borderColor={unavailbleBorder}
+                        data-identifier="seat-unavailable-subtitle"
                     ></StyledButton>
                     <p>Indisponível</p>
                 </li>
@@ -151,6 +154,7 @@ function Seat({
                 color={color}
                 borderColor={borderColor}
                 onClick={selectSeat}
+                data-identifier="seat"
             >
                 {name}
             </StyledButton>
@@ -195,6 +199,7 @@ function UserForm({ setPhase, seats, buyer, setBuyer }) {
                     }}
                     placeholder="Digite seu nome..."
                     required
+                    data-identifier="buyer-name-input"
                 />
             </div>
             <div>
@@ -210,9 +215,10 @@ function UserForm({ setPhase, seats, buyer, setBuyer }) {
                     }}
                     placeholder="Digite seu CPF..."
                     required
+                    data-identifier="buyer-cpf-input"
                 />
             </div>
-            <button type="submit">Reservar assento(s)</button>
+            <button type="submit" data-identifier="reservation-btn">Reservar assento(s)</button>
         </StyledForm>
     );
 }

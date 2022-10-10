@@ -9,13 +9,13 @@ export default function Footer({ phase, movie, poster, session }) {
 
     return (
         <StyledFooter>
-            <img src={poster} alt="poster_img" />
+            <img src={poster} alt="poster_img" data-identifier="movie-img-preview"/>
             <div>
-                <h1>{movie}</h1>             
+                <h1 data-identifier="movie-and-session-infos-preview">{movie}</h1>             
                 
                 {phase === "seats" && (
                     <>
-                        <span>
+                        <span data-identifier="movie-and-session-infos-preview">
                             <h1>{session.weekday} - {session.showtime}</h1>
                         </span>
                     </>
